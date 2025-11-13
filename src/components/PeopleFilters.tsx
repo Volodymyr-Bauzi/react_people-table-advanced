@@ -1,18 +1,38 @@
-export const PeopleFilters = () => {
+import { Person } from '../types';
+import { SearchLink } from './SearchLink';
+import cn from 'classnames';
+
+type PeopleFiltersProps = {
+  selectedSex: Person['sex'] | null;
+};
+
+export const PeopleFilters = ({ selectedSex }: PeopleFiltersProps) => {
   return (
     <nav className="panel">
       <p className="panel-heading">Filters</p>
 
       <p className="panel-tabs" data-cy="SexFilter">
-        <a className="is-active" href="#/people">
+        <SearchLink
+          params={{ sex: null }}
+          className={cn({ 'is-active': selectedSex === null })}
+        >
           All
-        </a>
-        <a className="" href="#/people?sex=m">
+        </SearchLink>
+        <SearchLink
+          params={{ sex: 'm' }}
+          className={cn({ 'is-active': selectedSex === 'm' })}
+        >
           Male
-        </a>
-        <a className="" href="#/people?sex=f">
+        </SearchLink>
+        <SearchLink
+          params={{ sex: 'f' }}
+          className={cn({ 'is-active': selectedSex === 'f' })}
+        >
           Female
-        </a>
+        </SearchLink>
+        <a className="is-active" href="#/people"></a>
+        <a className="" href="#/people?sex=m"></a>
+        <a className="" href="#/people?sex=f"></a>
       </p>
 
       <div className="panel-block">
