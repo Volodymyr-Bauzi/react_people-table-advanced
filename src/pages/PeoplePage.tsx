@@ -58,28 +58,34 @@ export const PeoplePage = () => {
       <div className="block">
         <div className="columns is-desktop is-flex-direction-row-reverse">
           <div className="column is-7-tablet is-narrow-desktop">
-            <PeopleFilters selectedSex={sexFilter} />
+            {!isLoading && <PeopleFilters selectedSex={sexFilter} />}
           </div>
 
           <div className="column">
             <div className="box table-container">
-              {isLoading && <Loader />}
-
               {error && (
                 <p data-cy="peopleLoadingError">Something went wrong</p>
               )}
 
-              {people?.length === 0 && (
-                <p data-cy="noPeopleMessage">
-                  There are no people on the server
-                </p>
-              )}
+              {isLoading ? (
+                <Loader />
+              ) : (
+                <>
+                  {people?.length === 0 && (
+                    <p data-cy="noPeopleMessage">
+                      There are no people on the server
+                    </p>
+                  )}
 
-              {false && (
-                <p>There are no people matching the current search criteria</p>
-              )}
+                  {false && (
+                    <p>
+                      There are no people matching the current search criteria
+                    </p>
+                  )}
 
-              <PeopleTable people={filteredPeople} />
+                  <PeopleTable people={filteredPeople} />
+                </>
+              )}
             </div>
           </div>
         </div>
