@@ -2,15 +2,20 @@ import { Link, useParams, useSearchParams } from 'react-router-dom';
 import { Person } from '../types';
 import cn from 'classnames';
 import { getSearchWith } from '../utils/searchHelper';
+import { SortingArrow } from './SortingArrow';
 
 type PeopleTableProps = {
   people: Person[];
+  getSortLinkProps: (field: string) => {};
 };
 
 /* eslint-disable jsx-a11y/control-has-associated-label */
-export const PeopleTable = ({ people }: PeopleTableProps) => {
+export const PeopleTable = ({ people, getSortLinkProps }: PeopleTableProps) => {
   const [searchParams] = useSearchParams();
   const { personSlug } = useParams<{ personSlug: string }>();
+
+  const sort = searchParams.get('sort');
+  const order = searchParams.get('order');
 
   return (
     <table
@@ -22,44 +27,64 @@ export const PeopleTable = ({ people }: PeopleTableProps) => {
           <th>
             <span className="is-flex is-flex-wrap-nowrap">
               Name
-              <a href="#/people?sort=name">
-                <span className="icon">
-                  <i className="fas fa-sort" />
-                </span>
-              </a>
+              <Link
+                to={{
+                  search: getSearchWith(searchParams, {
+                    ...getSortLinkProps('name'),
+                  }),
+                }}
+                replace
+              >
+                <SortingArrow sort={sort} order={order} field={'name'} />
+              </Link>
             </span>
           </th>
 
           <th>
             <span className="is-flex is-flex-wrap-nowrap">
               Sex
-              <a href="#/people?sort=sex">
-                <span className="icon">
-                  <i className="fas fa-sort" />
-                </span>
-              </a>
+              <Link
+                to={{
+                  search: getSearchWith(searchParams, {
+                    ...getSortLinkProps('sex'),
+                  }),
+                }}
+                replace
+              >
+                <SortingArrow sort={sort} order={order} field={'sex'} />
+              </Link>
             </span>
           </th>
 
           <th>
             <span className="is-flex is-flex-wrap-nowrap">
               Born
-              <a href="#/people?sort=born&amp;order=desc">
-                <span className="icon">
-                  <i className="fas fa-sort-up" />
-                </span>
-              </a>
+              <Link
+                to={{
+                  search: getSearchWith(searchParams, {
+                    ...getSortLinkProps('born'),
+                  }),
+                }}
+                replace
+              >
+                <SortingArrow sort={sort} order={order} field={'born'} />
+              </Link>
             </span>
           </th>
 
           <th>
             <span className="is-flex is-flex-wrap-nowrap">
               Died
-              <a href="#/people?sort=died">
-                <span className="icon">
-                  <i className="fas fa-sort" />
-                </span>
-              </a>
+              <Link
+                to={{
+                  search: getSearchWith(searchParams, {
+                    ...getSortLinkProps('died'),
+                  }),
+                }}
+                replace
+              >
+                <SortingArrow sort={sort} order={order} field={'died'} />
+              </Link>
             </span>
           </th>
 

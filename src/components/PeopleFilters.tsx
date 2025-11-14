@@ -8,7 +8,7 @@ const CENTURY_LIST = ['16', '17', '18', '19', '20'];
 export const PeopleFilters = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const sexFilter = (searchParams.get('sex') as SexFilter) || 'all';
+  const sexFilter = (searchParams.get('sex') as SexFilter) || null;
   const query = searchParams.get('query') || '';
   const centuriesFilter = searchParams.getAll('centuries');
 
@@ -42,7 +42,7 @@ export const PeopleFilters = () => {
 
       <p className="panel-tabs" data-cy="SexFilter">
         <SearchLink
-          params={{ sex: null }}
+          params={{ sex: 'null' }}
           className={cn({ 'is-active': sexFilter === null })}
         >
           All

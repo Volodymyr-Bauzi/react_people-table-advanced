@@ -1,3 +1,3 @@
-type SexFilter = 'all' | 'm' | 'f';
+type SexFilter = null | 'm' | 'f';
 
 export default SexFilter;
